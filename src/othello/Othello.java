@@ -75,14 +75,18 @@ public class Othello extends JFrame implements Runnable {
                     ydelta = getHeight2()/numRows;
                     xdelta = getWidth2()/numColumns;
                     currentColumn = xpos/xdelta;
-                    int row = ypos/ydelta;
-                    if(board[row][currentColumn]!=null)
+                    currentRow = ypos/ydelta;
+                    if(board[currentRow][currentColumn]!=null)
                     {
-                        if(playerOnesTurn && board[row][currentColumn].getColor()== Color.black)
+                        if(playerOnesTurn && board[currentRow][currentColumn].getColor()== Color.black)
                         {
-                            board[row][currentColumn].setClickedOn(true);
+                            board[currentRow][currentColumn].setClickedOn(true);
                         }
                     }
+//                    if(board[currentRow][currentColumn].getClickedOn())
+//                    {
+//                        
+//                    }
                 }
                 if (e.BUTTON3 == e.getButton()) {
                 
