@@ -33,6 +33,7 @@ public class Othello extends JFrame implements Runnable {
     Image bluepiece;
     Image redpiece;
     Image whitepiece;
+    Image yellowsquare;
     enum WinState
     {
         None,PlayerOne,PlayerTwo,PlayerThree,PlayerFour,Tie
@@ -79,6 +80,10 @@ public class Othello extends JFrame implements Runnable {
                     if(board[currentRow][currentColumn]!=null)
                     {
                         if(playerOnesTurn && board[currentRow][currentColumn].getColor()== Color.black)
+                        {
+                            board[currentRow][currentColumn].setClickedOn(true);
+                        }
+                        if(!playerOnesTurn && board[currentRow][currentColumn].getColor()== Color.white)
                         {
                             board[currentRow][currentColumn].setClickedOn(true);
                         }
@@ -301,6 +306,7 @@ public class Othello extends JFrame implements Runnable {
             background = Toolkit.getDefaultToolkit().getImage("./background.jpg");
             gameboard = Toolkit.getDefaultToolkit().getImage("./greenfelt.jpg");
             blackpiece = Toolkit.getDefaultToolkit().getImage("./blackpiece.GIF");
+            yellowsquare = Toolkit.getDefaultToolkit().getImage("./Rectangle.PNG");
 //            bluepiece;
 //            redpiece;
 //            whitepiece;
@@ -313,6 +319,7 @@ public class Othello extends JFrame implements Runnable {
         {
             moveHappened = false;
         }
+        //REDO CODE
         if(board[currentRow][currentColumn]!=null)
         {
             if(board[currentRow][currentColumn].getClickedOn())
@@ -322,7 +329,7 @@ public class Othello extends JFrame implements Runnable {
                     board[currentRow][currentColumn+2]= new Piece(board[currentRow][currentColumn].getColor());
                     if(board[currentRow][currentColumn+2].getClickedOn())
                     {
-                        winState = WinState.PlayerFour;
+                        playerOnesTurn=(!playerOnesTurn);
                     }
                 }
                 if(board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
@@ -330,7 +337,23 @@ public class Othello extends JFrame implements Runnable {
                     board[currentRow-2][currentColumn]= new Piece(board[currentRow][currentColumn].getColor());
                     if(board[currentRow-2][currentColumn].getClickedOn())
                     {
-                        winState = WinState.PlayerFour;
+                        playerOnesTurn=(!playerOnesTurn);
+                    }
+                }
+                if(board[currentRow+1][currentColumn]!=null && board[currentRow+2][currentColumn]==null)
+                {
+                    board[currentRow+2][currentColumn]= new Piece(board[currentRow][currentColumn].getColor());
+                    if(board[currentRow+2][currentColumn].getClickedOn())
+                    {
+                        playerOnesTurn=(!playerOnesTurn);
+                    }
+                }
+                if(board[currentRow][currentColumn-1]!=null && board[currentRow][currentColumn-2]==null)
+                {
+                    board[currentRow][currentColumn-2]= new Piece(board[currentRow][currentColumn].getColor());
+                    if(board[currentRow][currentColumn-2].getClickedOn())
+                    {
+                        playerOnesTurn=(!playerOnesTurn);
                     }
                 }
             }
