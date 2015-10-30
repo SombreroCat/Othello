@@ -37,6 +37,8 @@ public class Piece {
             return(Toolkit.getDefaultToolkit().getImage("./blackpiece.GIF"));
         if(color == Color.WHITE)
             return(Toolkit.getDefaultToolkit().getImage("./whitepiece.GIF"));
+        if(color == Color.yellow)
+            return(Toolkit.getDefaultToolkit().getImage("./Rectangle.PNG"));
         return(null);
     }
     
