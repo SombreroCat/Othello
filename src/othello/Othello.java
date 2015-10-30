@@ -87,6 +87,7 @@ public class Othello extends JFrame implements Runnable {
 //                    {
 //                        
 //                    }
+                    
                 }
                 if (e.BUTTON3 == e.getButton()) {
                 
@@ -312,8 +313,30 @@ public class Othello extends JFrame implements Runnable {
         {
             moveHappened = false;
         }
-        
+        if(board[currentRow][currentColumn]!=null)
+        {
+            if(board[currentRow][currentColumn].getClickedOn())
+            {
+                if(board[currentRow][currentColumn+1]!=null && board[currentRow][currentColumn+2]==null)
+                {
+                    board[currentRow][currentColumn+2]= new Piece(board[currentRow][currentColumn].getColor());
+                    if(board[currentRow][currentColumn+2].getClickedOn())
+                    {
+                        winState = WinState.PlayerFour;
+                    }
+                }
+                if(board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
+                {
+                    board[currentRow-2][currentColumn]= new Piece(board[currentRow][currentColumn].getColor());
+                    if(board[currentRow-2][currentColumn].getClickedOn())
+                    {
+                        winState = WinState.PlayerFour;
+                    }
+                }
+            }
+        }
     }
+    
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
         if (relaxer == null) {
