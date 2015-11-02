@@ -26,12 +26,16 @@ public class Othello extends JFrame implements Runnable {
     boolean moveHappened;
     int currentRow;
     int currentColumn;
+    int pastRow;
+    int pastColumn;
+    boolean purge;
     boolean gameover;
     Image background;
     Image gameboard;
     Image blackpiece;
     Image bluepiece;
     Image redpiece;
+    boolean repaint;
     Image whitepiece;
     Image yellowsquare;
     enum WinState
@@ -83,7 +87,7 @@ public class Othello extends JFrame implements Runnable {
                         {
                             board[currentRow][currentColumn].setClickedOn(true);
                         }
-                        if(!playerOnesTurn && board[currentRow][currentColumn].getColor()== Color.white)
+                        if(!playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.white || board[currentRow][currentColumn].getColor()== Color.yellow))
                         {
                             board[currentRow][currentColumn].setClickedOn(true);
                         }
@@ -289,6 +293,8 @@ public class Othello extends JFrame implements Runnable {
         winState = WinState.None;
         piecesOnBoard = 0;
         gameover=false;
+        purge=false;
+        repaint=false;
         board[4][4] = new Piece(Color.white);
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
@@ -335,45 +341,59 @@ public class Othello extends JFrame implements Runnable {
         {
             moveHappened = false;
         }
+        if(purge)
+        {
+            for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if (board[zrow][zcolumn] != null)
+                        {
+                            if(board[zrow][zcolumn].getColor()==Color.yellow)
+                                board[zrow][zcolumn]=null;
+                        }
+                    }
+                }
+            purge=false;
+        }
         //REDO CODE
         if(board[currentRow][currentColumn]!=null)
         {
             if(board[currentRow][currentColumn].getClickedOn())
             {
-                if(board[currentRow][currentColumn+1]!=null && board[currentRow][currentColumn+2]==null)
-                {
-                    board[currentRow][currentColumn+2]= new Piece(Color.yellow);
-                    if(board[currentRow][currentColumn+2].getClickedOn())
+                    if(board[currentRow][currentColumn].getColor()!=Color.YELLOW)
                     {
-                        playerOnesTurn=(!playerOnesTurn);
-                        winState = WinState.PlayerFour;
-                        board[currentRow][currentColumn+2].setColor(board[currentRow][currentColumn].getColor());
+                        if(currentColumn+1<numColumns && currentColumn+2<numColumns && board[currentRow][currentColumn+1]!=null && board[currentRow][currentColumn+2]==null)
+                        {
+                            board[currentRow][currentColumn+2]= new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentRow-1>=0 && currentRow-2>=0 && board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
+                        {
+                            board[currentRow-2][currentColumn]= new Piece(Color.yellow);
+                        }
+                        if(currentRow+1<numRows && currentRow+2<numRows &&board[currentRow+1][currentColumn]!=null && board[currentRow+2][currentColumn]==null)
+                        {
+                            board[currentRow+2][currentColumn]= new Piece(Color.yellow);
+                        }
+                        if(currentColumn-1>=0 && currentColumn-2>=0 && board[currentRow][currentColumn-1]!=null && board[currentRow][currentColumn-2]==null)
+                        {
+                            board[currentRow][currentColumn-2]= new Piece(Color.yellow);
+                        }
                     }
-                }
-                if(board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
-                {
-                    board[currentRow-2][currentColumn]= new Piece(Color.yellow);
-                    if(board[currentRow-2][currentColumn].getClickedOn())
+                    else if(playerOnesTurn)
                     {
-                        playerOnesTurn=(!playerOnesTurn);
+                        board[currentRow][currentColumn].setColor(Color.BLACK);
+                        playerOnesTurn= !playerOnesTurn;
+                        purge=true;
                     }
-                }
-                if(board[currentRow+1][currentColumn]!=null && board[currentRow+2][currentColumn]==null)
-                {
-                    board[currentRow+2][currentColumn]= new Piece(Color.yellow);
-                    if(board[currentRow+2][currentColumn].getClickedOn())
+                    else if(!playerOnesTurn)
                     {
-                        playerOnesTurn=(!playerOnesTurn);
+                        board[currentRow][currentColumn].setColor(Color.WHITE);
+                        playerOnesTurn= !playerOnesTurn;
+                        purge=true;
                     }
-                }
-                if(board[currentRow][currentColumn-1]!=null && board[currentRow][currentColumn-2]==null)
-                {
-                    board[currentRow][currentColumn-2]= new Piece(Color.yellow);
-                    if(board[currentRow][currentColumn-2].getClickedOn())
-                    {
-                        playerOnesTurn=(!playerOnesTurn);
-                    }
-                }
             }
         }
     }
