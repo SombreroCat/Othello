@@ -27,6 +27,7 @@ public class Othello extends JFrame implements Runnable {
     int currentRow;
     int currentColumn;
     boolean gameover;
+    boolean done;
     Image background;
     Image gameboard;
     Image blackpiece;
@@ -289,11 +290,13 @@ public class Othello extends JFrame implements Runnable {
         winState = WinState.None;
         piecesOnBoard = 0;
         gameover=false;
+        done=false;
         board[4][4] = new Piece(Color.white);
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
         board[4][3] = new Piece(Color.black);
-        board[4][3] = new Piece(Color.black);
+        board[3][2] = new Piece(Color.white);
+        board[4][6] = new Piece(Color.black);
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -313,21 +316,69 @@ public class Othello extends JFrame implements Runnable {
 //            whitepiece;
             reset();
         }
-        //////////////////Checks for valid white postitions///////////////
-//        for (int row=0;row<numRows;row++)
-//             {
-//                 for(int col=0;col<numColumns;col++)
-//                 {
-//                     if(board[row][col].getColor()==Color.white)
-//                     {
-//                         for(int row2=0;row2<numRows;row2++)
-//                         {
-//                             if(board[row+row2][col].getColor()!=Color.white)
-//                                 
-//                         }
-//                     }
-//                 }
-//             }
+////////////////////////Checks for valid VERTICAL white postitions////////////////////////
+        
+        for (int row=0;row<numRows;row++)
+             {done = false;
+                 for(int col=0;col<numColumns;col++)
+                 {
+                     if(board[row][col]!=null)
+                     {
+                        if(board[row][col].getColor()==Color.white)
+                        {
+                            for (int col2=col;col2<numColumns;col2++)
+                            {
+                                for(int row2=0;row2<numRows-row;row2++)
+                                {
+                                    if(board[row+row2][col]==null&&!done)
+                                    {
+                                        board[row+row2][col]=new Piece(Color.yellow);
+                                        System.out.println("It worked");
+                                        done=true;
+                                    }
+                                }
+                            }
+                        }
+                     }
+                 }
+             }
+////////////////////////Checks for valid HORIZONTAL white postitions////////////////////////        
+        for (int col=0;col<numRows;col++)
+             {done = false;
+                 for(int row=0;row<numColumns;row++)
+                 {
+                     if(board[row][col]!=null)
+                     {
+                        if(board[row][col].getColor()==Color.white)
+                        {
+                            for (int row2=col;row2<numColumns;row2++)
+                            {
+                                for(int col2=0;col2<numRows-col;col2++)
+                                {
+                                    
+                                    if(board[row][col+col2]==null&&!done)
+                                    {
+                                        board[row][col+col2]=new Piece(Color.yellow);
+                                        System.out.println("It worked 2");
+                                        done=true;
+                                    }
+                                }
+                            }
+                        }
+                     }
+                 }
+             }
+//                            for(int row2=0;row2<numRows-row;row2++)
+//                            {
+//                                if(board[row+row2][col]!=null)
+//                                {
+//                                    if(board[row+row2][col].getColor()!=Color.white||board[row+row2][col]==null)
+//                                    {
+//                                        board[row+row2][col] = new Piece(Color.yellow);
+//                                        System.out.println("It worked");
+//                                    }
+//                                }
+//                              }
         if(gameover)
             return;
         

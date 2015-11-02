@@ -41,5 +41,4 @@ public class Piece {
             return(Toolkit.getDefaultToolkit().getImage("./Rectangle.PNG"));
         return(null);
     }
-    
 }
