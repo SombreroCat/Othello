@@ -79,7 +79,7 @@ public class Othello extends JFrame implements Runnable {
                     currentRow = ypos/ydelta;
                     if(board[currentRow][currentColumn]!=null)
                     {
-                        if(playerOnesTurn && board[currentRow][currentColumn].getColor()== Color.black)
+                        if(playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.black || board[currentRow][currentColumn].getColor()== Color.yellow))
                         {
                             board[currentRow][currentColumn].setClickedOn(true);
                         }
@@ -342,15 +342,17 @@ public class Othello extends JFrame implements Runnable {
             {
                 if(board[currentRow][currentColumn+1]!=null && board[currentRow][currentColumn+2]==null)
                 {
-                    board[currentRow][currentColumn+2]= new Piece(board[currentRow][currentColumn].getColor());
+                    board[currentRow][currentColumn+2]= new Piece(Color.yellow);
                     if(board[currentRow][currentColumn+2].getClickedOn())
                     {
                         playerOnesTurn=(!playerOnesTurn);
+                        winState = WinState.PlayerFour;
+                        board[currentRow][currentColumn+2].setColor(board[currentRow][currentColumn].getColor());
                     }
                 }
                 if(board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
                 {
-                    board[currentRow-2][currentColumn]= new Piece(board[currentRow][currentColumn].getColor());
+                    board[currentRow-2][currentColumn]= new Piece(Color.yellow);
                     if(board[currentRow-2][currentColumn].getClickedOn())
                     {
                         playerOnesTurn=(!playerOnesTurn);
@@ -366,7 +368,7 @@ public class Othello extends JFrame implements Runnable {
                 }
                 if(board[currentRow][currentColumn-1]!=null && board[currentRow][currentColumn-2]==null)
                 {
-                    board[currentRow][currentColumn-2]= new Piece(board[currentRow][currentColumn].getColor());
+                    board[currentRow][currentColumn-2]= new Piece(Color.yellow);
                     if(board[currentRow][currentColumn-2].getClickedOn())
                     {
                         playerOnesTurn=(!playerOnesTurn);
