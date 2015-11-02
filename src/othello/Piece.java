@@ -5,6 +5,11 @@ import java.awt.*;
 public class Piece {
     private Color color;
     private boolean ClickedOn;
+    static int blackScore;
+    static int whiteScore;
+    static int redScore;
+    static int blueScore;
+    
     Piece(Color _color)
     {
         color = _color;

@@ -1,6 +1,4 @@
-
 package othello;
-
 import java.io.*;
 import java.awt.*;
 import java.awt.geom.*;
@@ -254,12 +252,12 @@ public class Othello extends JFrame implements Runnable {
 ////        g.drawString ("playerTwo Score: " + playerTwoScore, 350, 50);
 ////        
 //
-//        g.setColor(Color.BLACK);
-//        g.setFont (new Font ("Impact", Font.PLAIN, 15));
-//        g.drawString ("Player 1 Score: " + playerOneScore, 30, 50);
-//        g.drawString ("player 2 Score: " + playerTwoScore, 150, 50);
-//        g.drawString ("Player 3 Score: " + playerOneScore, 270, 50);
-//        g.drawString ("Player 4 Score: " + playerOneScore, 390, 50);
+        g.setColor(Color.green);
+        g.setFont (new Font ("Impact", Font.PLAIN, 15));
+        g.drawString ("Black's score: " + Piece.blackScore, 30, 50);
+        g.drawString ("White's score: " + Piece.whiteScore, 160, 50);
+        g.drawString ("Red's score: " + Piece.redScore, 280, 50);
+        g.drawString ("Blue's score: " + Piece.blueScore, 400, 50);
 //        
 
 
@@ -282,7 +280,7 @@ public class Othello extends JFrame implements Runnable {
         }
     }
 /////////////////////////////////////////////////////////////////////////
-    public void reset() {
+    public void reset(){
         board = new Piece[numRows][numColumns];
         playerOnesTurn = true;
         moveHappened = false;
@@ -312,22 +310,7 @@ public class Othello extends JFrame implements Runnable {
 //            redpiece;
 //            whitepiece;
             reset();
-        }
-        //////////////////Checks for valid white postitions///////////////
-//        for (int row=0;row<numRows;row++)
-//             {
-//                 for(int col=0;col<numColumns;col++)
-//                 {
-//                     if(board[row][col].getColor()==Color.white)
-//                     {
-//                         for(int row2=0;row2<numRows;row2++)
-//                         {
-//                             if(board[row+row2][col].getColor()!=Color.white)
-//                                 
-//                         }
-//                     }
-//                 }
-//             }
+        }     
         if(gameover)
             return;
         
