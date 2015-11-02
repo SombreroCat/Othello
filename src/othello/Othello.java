@@ -341,6 +341,20 @@ public class Othello extends JFrame implements Runnable {
         {
             moveHappened = false;
         }
+        if(repaint)
+        {
+            if(currentColumn==pastColumn)
+            {
+                int bop = currentRow-pastRow;
+                if(bop>0)
+                {
+                    for (int zrow=1;zrow<bop;zrow++)
+                    {
+                        board[currentRow+zrow][currentColumn].setColor(board[pastRow][pastColumn].getColor());
+                    }
+                }
+            }
+        }
         if(purge)
         {
             for (int zrow=0;zrow<numRows;zrow++)
@@ -372,14 +386,20 @@ public class Othello extends JFrame implements Runnable {
                         if(currentRow-1>=0 && currentRow-2>=0 && board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
                         {
                             board[currentRow-2][currentColumn]= new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
                         }
                         if(currentRow+1<numRows && currentRow+2<numRows &&board[currentRow+1][currentColumn]!=null && board[currentRow+2][currentColumn]==null)
                         {
                             board[currentRow+2][currentColumn]= new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
                         }
                         if(currentColumn-1>=0 && currentColumn-2>=0 && board[currentRow][currentColumn-1]!=null && board[currentRow][currentColumn-2]==null)
                         {
                             board[currentRow][currentColumn-2]= new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
                         }
                     }
                     else if(playerOnesTurn)
@@ -387,6 +407,7 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setColor(Color.BLACK);
                         playerOnesTurn= !playerOnesTurn;
                         purge=true;
+                        repaint=true;
                     }
                     else if(!playerOnesTurn)
                     {
