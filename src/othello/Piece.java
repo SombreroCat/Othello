@@ -5,6 +5,7 @@ import java.awt.*;
 public class Piece {
     private Color color;
     private boolean ClickedOn;
+    private boolean counted;
     static int blackScore;
     static int whiteScore;
     static int redScore;
@@ -30,6 +31,14 @@ public class Piece {
     void setClickedOn(boolean _clickedon)
     {
         ClickedOn=_clickedon;
+    }
+    void setCounted(boolean _counted)
+    {
+        counted=_counted;
+    }
+    boolean getCounted()
+    {
+        return(counted);
     }
     
     Image getPiece()

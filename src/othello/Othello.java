@@ -311,8 +311,7 @@ public class Othello extends JFrame implements Runnable {
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
         board[4][3] = new Piece(Color.black);
-        Piece.whiteScore=2;
-        Piece.blackScore=2;
+
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -353,6 +352,35 @@ public class Othello extends JFrame implements Runnable {
 //                }
 //            }
 //        }
+        for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if(board[zrow][zcolumn]!=null)
+                        {
+                            if(board[zrow][zcolumn].getColor()== Color.black&&!board[zrow][zcolumn].getClickedOn())
+                            {
+                                Piece.blackScore++;
+                                board[zrow][zcolumn].setClickedOn(true);
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.white&&!board[zrow][zcolumn].getClickedOn())
+                            {
+                                Piece.whiteScore++;
+                                board[zrow][zcolumn].setClickedOn(true);
+                            } 
+                            if(board[zrow][zcolumn].getColor()== Color.red&&!board[zrow][zcolumn].getClickedOn())
+                            {
+                                Piece.redScore++;
+                                board[zrow][zcolumn].setClickedOn(true&&!board[zrow][zcolumn].getClickedOn());
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.blue)
+                            {
+                                Piece.blueScore++;
+                                board[zrow][zcolumn].setClickedOn(true);
+                            }
+                        }
+                    }
+                }
         if(purge)
         {
             for (int zrow=0;zrow<numRows;zrow++)
@@ -407,18 +435,7 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
-                        Piece.blackScore++;
                     }
-<<<<<<< HEAD
-                    else if(!playerOnesTurn)
-                    {
-                        board[currentRow][currentColumn].setColor(Color.WHITE);
-                        playerOnesTurn= !playerOnesTurn;
-                        purge=true;
-                        Piece.whiteScore++;
-                    }
-=======
->>>>>>> origin/master
             }
         }
     }
