@@ -311,7 +311,8 @@ public class Othello extends JFrame implements Runnable {
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
         board[4][3] = new Piece(Color.black);
-        board[4][3] = new Piece(Color.black);
+        Piece.whiteScore=2;
+        Piece.blackScore=2;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -444,7 +445,18 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
+                        Piece.blackScore++;
                     }
+<<<<<<< HEAD
+                    else if(!playerOnesTurn)
+                    {
+                        board[currentRow][currentColumn].setColor(Color.WHITE);
+                        playerOnesTurn= !playerOnesTurn;
+                        purge=true;
+                        Piece.whiteScore++;
+                    }
+=======
+>>>>>>> origin/master
             }
         }
     }
