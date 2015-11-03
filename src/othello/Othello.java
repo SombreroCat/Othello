@@ -447,16 +447,6 @@ public class Othello extends JFrame implements Runnable {
                         repaint=true;
                         Piece.blackScore++;
                     }
-<<<<<<< HEAD
-                    else if(!playerOnesTurn)
-                    {
-                        board[currentRow][currentColumn].setColor(Color.WHITE);
-                        playerOnesTurn= !playerOnesTurn;
-                        purge=true;
-                        Piece.whiteScore++;
-                    }
-=======
->>>>>>> origin/master
             }
         }
     }
