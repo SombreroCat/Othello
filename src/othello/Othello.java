@@ -126,20 +126,17 @@ public class Othello extends JFrame implements Runnable {
         addKeyListener(new KeyAdapter() {
 
             public void keyPressed(KeyEvent e) {
-                if (e.VK_RIGHT == e.getKeyCode())
+                if (e.VK_ESCAPE == e.getKeyCode()) 
                 {
+                    
                 }
-                if (e.VK_LEFT == e.getKeyCode())
+                if (e.VK_R == e.getKeyCode())
                 {
-                }
-                if (e.VK_UP == e.getKeyCode())
-                {
-                }
-                if (e.VK_DOWN == e.getKeyCode())
-                {
-                }
-                if (e.VK_ESCAPE == e.getKeyCode()) {
                     reset();
+                }
+                if (e.VK_E == e.getKeyCode())
+                {
+                    playerOnesTurn=!playerOnesTurn;
                 }
 
                 repaint();
@@ -272,12 +269,14 @@ public class Othello extends JFrame implements Runnable {
         
         g.drawString ("Red's score: " + Piece.redScore, 30, 590);
         g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
-//        if(!playerOnesTurn)
-//        {
-//            g.setColor(Color.RED);
-//            g.drawString ("P2", 30, 200);
-//        }
-//        
+        g.drawString("Press Tab to Forfeit Turn", 200, 590);
+        if(!playerOnesTurn)
+        {
+            g.drawString ("White's Turn", 240, 50);
+        }
+        else
+            g.drawString ("Black's Turn", 240, 50);
+        
 
 
         gOld.drawImage(image, 0, 0, null);
