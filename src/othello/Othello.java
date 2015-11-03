@@ -268,14 +268,15 @@ public class Othello extends JFrame implements Runnable {
         g.setColor(Color.green);
         g.setFont (new Font ("Impact", Font.PLAIN, 15));
         g.drawString ("Black's score: " + Piece.blackScore, 30, 50);
-        g.drawString ("White's score: " + Piece.whiteScore, 160, 50);
-        g.drawString ("Red's score: " + Piece.redScore, 280, 50);
-        g.drawString ("Blue's score: " + Piece.blueScore, 400, 50);
-        if(!playerOnesTurn)
-        {
-            g.setColor(Color.RED);
-            g.drawString ("P2", 30, 200);
-        }
+        g.drawString ("White's score: " + Piece.whiteScore, 425, 50);
+        
+        g.drawString ("Red's score: " + Piece.redScore, 30, 590);
+        g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
+//        if(!playerOnesTurn)
+//        {
+//            g.setColor(Color.RED);
+//            g.drawString ("P2", 30, 200);
+//        }
 //        
 
 
@@ -338,20 +339,42 @@ public class Othello extends JFrame implements Runnable {
         {
             moveHappened = false;
         }
-//        if(repaint)
-//        {
-//            if(currentColumn==pastColumn)
-//            {
-//                int bop = currentRow-pastRow;
-//                if(bop>0)
-//                {
-//                    for (int zrow=1;zrow<bop;zrow++)
-//                    {
-//                        board[currentRow+zrow][currentColumn].setColor(board[pastRow][pastColumn].getColor());
-//                    }
-//                }
-//            }
-//        }
+        if(repaint)
+        {
+            if(currentColumn==pastColumn)
+            {
+                int bop = currentRow-pastRow;
+                if(bop>0)
+                {
+                    for (int zrow=1;zrow<bop;zrow++)
+                    {
+                        board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
+                    }
+                }
+                if(bop<0)
+                    for (int zrow=-1;zrow>bop;zrow--)
+                    {
+                        board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
+                    }
+            }
+            if(currentRow==pastRow)
+            {
+                int bop = currentColumn-pastColumn;
+                if(bop>0)
+                {
+                    for (int zcol=1;zcol<bop;zcol++)
+                    {
+                        board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
+                    }
+                }
+                if(bop<0)
+                    for (int zcol=-1;zcol>bop;zcol--)
+                    {
+                        board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
+                    }
+            }
+            repaint=false;
+        }
         if(purge)
         {
             for (int zrow=0;zrow<numRows;zrow++)
@@ -374,25 +397,41 @@ public class Othello extends JFrame implements Runnable {
             {
                     if(board[currentRow][currentColumn].getColor()!=Color.YELLOW)
                     {
-                        if(currentColumn+1<numColumns && currentColumn+2<numColumns && board[currentRow][currentColumn+1]!=null && board[currentRow][currentColumn+2]==null)
+                        if(currentColumn+1<numColumns && currentColumn+2<numColumns 
+                           && board[currentRow][currentColumn+1]!=null
+                           && board[currentRow][currentColumn+1].getColor()!=board[currentRow][currentColumn].getColor() 
+                           && board[currentRow][currentColumn+1].getColor()!=Color.YELLOW
+                           && board[currentRow][currentColumn+2]==null)
                         {
                             board[currentRow][currentColumn+2]= new Piece(Color.yellow);
                             pastRow=currentRow;
                             pastColumn=currentColumn;
                         }
-                        if(currentRow-1>=0 && currentRow-2>=0 && board[currentRow-1][currentColumn]!=null && board[currentRow-2][currentColumn]==null)
+                        if(currentRow-1>=0 && currentRow-2>=0 
+                           && board[currentRow-1][currentColumn]!=null 
+                           && board[currentRow-1][currentColumn].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow-1][currentColumn].getColor()!=Color.YELLOW
+                           && board[currentRow-2][currentColumn]==null)
                         {
                             board[currentRow-2][currentColumn]= new Piece(Color.yellow);
                             pastRow=currentRow;
                             pastColumn=currentColumn;
                         }
-                        if(currentRow+1<numRows && currentRow+2<numRows &&board[currentRow+1][currentColumn]!=null && board[currentRow+2][currentColumn]==null)
+                        if(currentRow+1<numRows && currentRow+2<numRows 
+                           &&board[currentRow+1][currentColumn]!=null 
+                           && board[currentRow+1][currentColumn].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow+1][currentColumn].getColor()!=Color.YELLOW     
+                           && board[currentRow+2][currentColumn]==null)
                         {
                             board[currentRow+2][currentColumn]= new Piece(Color.yellow);
                             pastRow=currentRow;
                             pastColumn=currentColumn;
                         }
-                        if(currentColumn-1>=0 && currentColumn-2>=0 && board[currentRow][currentColumn-1]!=null && board[currentRow][currentColumn-2]==null)
+                        if(currentColumn-1>=0 && currentColumn-2>=0 
+                           && board[currentRow][currentColumn-1]!=null 
+                           && board[currentRow][currentColumn-1].getColor()!=board[currentRow][currentColumn].getColor() 
+                           && board[currentRow][currentColumn-1].getColor()!=Color.YELLOW     
+                           && board[currentRow][currentColumn-2]==null)
                         {
                             board[currentRow][currentColumn-2]= new Piece(Color.yellow);
                             pastRow=currentRow;
