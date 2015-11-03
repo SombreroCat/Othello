@@ -85,6 +85,10 @@ public class Othello extends JFrame implements Runnable {
                         {
                             board[currentRow][currentColumn].setClickedOn(true);
                         }
+                        else
+                        {
+                            board[currentRow][currentColumn].setClickedOn(false);
+                        }
                         if(!playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.white))
                         {
                             board[currentRow][currentColumn].setClickedOn(true);
@@ -399,6 +403,7 @@ public class Othello extends JFrame implements Runnable {
                     {
                         board[currentRow][currentColumn].setColor(board[pastRow][pastColumn].getColor());
                         playerOnesTurn= !playerOnesTurn;
+                        board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
                     }
