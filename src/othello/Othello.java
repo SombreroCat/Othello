@@ -27,6 +27,7 @@ public class Othello extends JFrame implements Runnable {
     int pastRow;
     int pastColumn;
     boolean purge;
+    boolean countscore;
     boolean gameover;
     Image background;
     Image gameboard;
@@ -307,6 +308,7 @@ public class Othello extends JFrame implements Runnable {
         gameover=false;
         purge=false;
         repaint=false;
+        countscore=false;
         board[4][4] = new Piece(Color.white);
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
@@ -338,7 +340,7 @@ public class Othello extends JFrame implements Runnable {
         {
             moveHappened = false;
         }
-<<<<<<< HEAD
+
 //        if(repaint)
 //        {
 //            if(currentColumn==pastColumn)
@@ -382,7 +384,44 @@ public class Othello extends JFrame implements Runnable {
                         }
                     }
                 }
-=======
+        {
+            int blackscore=0;
+            int whitescore=0;
+            int redscore=0;
+            int bluescore=0;
+            for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if (board[zrow][zcolumn] != null)
+                        {
+                            if(board[zrow][zcolumn].getColor()== Color.BLACK)
+                            {
+                                blackscore++;
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.WHITE)
+                            {
+                                whitescore++;
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.RED)
+                            {
+                                redscore++;
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.BLUE)
+                            {
+                                bluescore++;
+
+                            }
+                        }
+                    }
+                }
+
+            Piece.whiteScore=whitescore;
+            Piece.blackScore=blackscore;
+            Piece.redScore=redscore;
+            Piece.blueScore=bluescore;
+        }
+
         if(repaint)
         {
             if(currentColumn==pastColumn)
@@ -419,7 +458,7 @@ public class Othello extends JFrame implements Runnable {
             }
             repaint=false;
         }
->>>>>>> origin/master
+
         if(purge)
         {
             for (int zrow=0;zrow<numRows;zrow++)
@@ -490,10 +529,15 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
-                    }
+
+
+
+                 }
             }
         }
     }
+
+ 
     
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
