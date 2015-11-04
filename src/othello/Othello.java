@@ -269,7 +269,7 @@ public class Othello extends JFrame implements Runnable {
         
         g.drawString ("Red's score: " + Piece.redScore, 30, 590);
         g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
-        g.drawString("Press Tab to Forfeit Turn", 200, 590);
+        g.drawString("Press E to Forfeit Turn", 200, 590);
         if(!playerOnesTurn)
         {
             g.drawString ("White's Turn", 240, 50);
@@ -380,15 +380,11 @@ public class Othello extends JFrame implements Runnable {
                 if(bop>0)
                 {
                     for (int zrow=1;zrow<bop;zrow++)
-                    {
                         board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
-                    }
                 }
                 if(bop<0)
                     for (int zrow=-1;zrow>bop;zrow--)
-                    {
                         board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
-                    }
             }
             if(currentRow==pastRow)
             {
@@ -396,15 +392,31 @@ public class Othello extends JFrame implements Runnable {
                 if(bop>0)
                 {
                     for (int zcol=1;zcol<bop;zcol++)
-                    {
                         board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
-                    }
                 }
                 if(bop<0)
                     for (int zcol=-1;zcol>bop;zcol--)
-                    {
                         board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
-                    }
+            }
+            if(currentRow==pastRow-2 && currentColumn==pastColumn+2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow-diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow+2 && currentColumn==pastColumn-2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow+diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow-2 && currentColumn==pastColumn-2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow-diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow+2 && currentColumn==pastColumn+2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow+diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
             }
             repaint=false;
         }
@@ -467,6 +479,50 @@ public class Othello extends JFrame implements Runnable {
                            && board[currentRow][currentColumn-2]==null)
                         {
                             board[currentRow][currentColumn-2]= new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentColumn+1<numColumns && currentColumn+2<numColumns && currentRow-1>=0 && currentRow-2>=0
+                           && board[currentRow-1][currentColumn+1]!=null
+                           && board[currentRow-1][currentColumn+1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow-1][currentColumn+1].getColor()!=Color.YELLOW 
+                           && board[currentRow-2][currentColumn+2]==null
+                                )
+                        {
+                            board[currentRow-2][currentColumn+2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentRow+1<numRows && currentRow+2<numRows && currentColumn-1>=0 && currentColumn-2>=0
+                           && board[currentRow+1][currentColumn-1]!=null
+                           && board[currentRow+1][currentColumn-1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow+1][currentColumn-1].getColor()!=Color.YELLOW 
+                           && board[currentRow+2][currentColumn-2]==null
+                                )
+                        {
+                            board[currentRow+2][currentColumn-2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentColumn-1>0 && currentColumn-2>0 && currentRow-1>0 && currentRow-2>0
+                           && board[currentRow-1][currentColumn-1]!=null
+                           && board[currentRow-1][currentColumn-1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow-1][currentColumn-1].getColor()!=Color.YELLOW 
+                           && board[currentRow-2][currentColumn-2]==null     
+                                )
+                        {
+                            board[currentRow-2][currentColumn-2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentColumn+1<numColumns && currentColumn+2<numColumns && currentRow+1<numRows && currentRow+2<numRows
+                           && board[currentRow+1][currentColumn+1]!=null
+                           && board[currentRow+1][currentColumn+1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow+1][currentColumn+1].getColor()!=Color.YELLOW 
+                           && board[currentRow+2][currentColumn-+2]==null     
+                                )
+                        {
+                            board[currentRow+2][currentColumn+2] = new Piece(Color.yellow);
                             pastRow=currentRow;
                             pastColumn=currentColumn;
                         }
