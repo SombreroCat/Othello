@@ -86,6 +86,7 @@ public class Othello extends JFrame implements Runnable {
                     {
                         if(board[currentRow][currentColumn]!=null)
                         {
+<<<<<<< HEAD
                             if(playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.black))
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
@@ -102,6 +103,22 @@ public class Othello extends JFrame implements Runnable {
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
+=======
+                            board[currentRow][currentColumn].setClickedOn(true);
+                        }
+                        else
+                        {
+                            board[currentRow][currentColumn].setClickedOn(false);
+                        }
+                        if(!playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.white))
+                        {
+                            board[currentRow][currentColumn].setClickedOn(true);
+                        }
+
+                        if(board[currentRow][currentColumn].getColor()== Color.yellow)
+                        {
+                            board[currentRow][currentColumn].setClickedOn(true);
+>>>>>>> origin/master
                         }
                     }
                     if(e.getY()>=200&&e.getY()<=350&&e.getX()>=200&&e.getX()<=350)
@@ -307,6 +324,18 @@ public class Othello extends JFrame implements Runnable {
         }
         
         
+<<<<<<< HEAD
+=======
+        g.drawString ("Red's score: " + Piece.redScore, 30, 590);
+        g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
+        g.drawString("Press E to Forfeit Turn", 200, 590);
+        if(!playerOnesTurn)
+        {
+            g.drawString ("White's Turn", 240, 50);
+        }
+        else
+            g.drawString ("Black's Turn", 240, 50);
+>>>>>>> origin/master
         
 
 
@@ -388,36 +417,6 @@ public class Othello extends JFrame implements Runnable {
 //                }
 //            }
 //        }
-        for (int zrow=0;zrow<numRows;zrow++)
-                {
-                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                    {
-                        if(board[zrow][zcolumn]!=null)
-                        {
-                            if(board[zrow][zcolumn].getColor()== Color.black&&!board[zrow][zcolumn].getClickedOn())
-                            {
-                                Piece.blackScore++;
-                                board[zrow][zcolumn].setClickedOn(true);
-                            }
-                            if(board[zrow][zcolumn].getColor()== Color.white&&!board[zrow][zcolumn].getClickedOn())
-                            {
-                                Piece.whiteScore++;
-                                board[zrow][zcolumn].setClickedOn(true);
-                            } 
-                            if(board[zrow][zcolumn].getColor()== Color.red&&!board[zrow][zcolumn].getClickedOn())
-                            {
-                                Piece.redScore++;
-                                board[zrow][zcolumn].setClickedOn(true&&!board[zrow][zcolumn].getClickedOn());
-                            }
-                            if(board[zrow][zcolumn].getColor()== Color.blue)
-                            {
-                                Piece.blueScore++;
-                                board[zrow][zcolumn].setClickedOn(true);
-                            }
-                        }
-                    }
-                }
-        {
             int blackscore=0;
             int whitescore=0;
             int redscore=0;
@@ -453,7 +452,7 @@ public class Othello extends JFrame implements Runnable {
             Piece.blackScore=blackscore;
             Piece.redScore=redscore;
             Piece.blueScore=bluescore;
-        }
+        
 
         if(repaint)
         {
@@ -463,15 +462,11 @@ public class Othello extends JFrame implements Runnable {
                 if(bop>0)
                 {
                     for (int zrow=1;zrow<bop;zrow++)
-                    {
                         board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
-                    }
                 }
                 if(bop<0)
                     for (int zrow=-1;zrow>bop;zrow--)
-                    {
                         board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
-                    }
             }
             if(currentRow==pastRow)
             {
@@ -479,15 +474,31 @@ public class Othello extends JFrame implements Runnable {
                 if(bop>0)
                 {
                     for (int zcol=1;zcol<bop;zcol++)
-                    {
                         board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
-                    }
                 }
                 if(bop<0)
                     for (int zcol=-1;zcol>bop;zcol--)
-                    {
                         board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
-                    }
+            }
+            if(currentRow==pastRow-2 && currentColumn==pastColumn+2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow-diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow+2 && currentColumn==pastColumn-2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow+diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow-2 && currentColumn==pastColumn-2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow-diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow+2 && currentColumn==pastColumn+2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow+diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
             }
             repaint=false;
         }
@@ -554,6 +565,50 @@ public class Othello extends JFrame implements Runnable {
                             pastRow=currentRow;
                             pastColumn=currentColumn;
                         }
+                        if(currentColumn+1<numColumns && currentColumn+2<numColumns && currentRow-1>=0 && currentRow-2>=0
+                           && board[currentRow-1][currentColumn+1]!=null
+                           && board[currentRow-1][currentColumn+1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow-1][currentColumn+1].getColor()!=Color.YELLOW 
+                           && board[currentRow-2][currentColumn+2]==null
+                                )
+                        {
+                            board[currentRow-2][currentColumn+2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentRow+1<numRows && currentRow+2<numRows && currentColumn-1>=0 && currentColumn-2>=0
+                           && board[currentRow+1][currentColumn-1]!=null
+                           && board[currentRow+1][currentColumn-1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow+1][currentColumn-1].getColor()!=Color.YELLOW 
+                           && board[currentRow+2][currentColumn-2]==null
+                                )
+                        {
+                            board[currentRow+2][currentColumn-2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentColumn-1>0 && currentColumn-2>0 && currentRow-1>0 && currentRow-2>0
+                           && board[currentRow-1][currentColumn-1]!=null
+                           && board[currentRow-1][currentColumn-1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow-1][currentColumn-1].getColor()!=Color.YELLOW 
+                           && board[currentRow-2][currentColumn-2]==null     
+                                )
+                        {
+                            board[currentRow-2][currentColumn-2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
+                        if(currentColumn+1<numColumns && currentColumn+2<numColumns && currentRow+1<numRows && currentRow+2<numRows
+                           && board[currentRow+1][currentColumn+1]!=null
+                           && board[currentRow+1][currentColumn+1].getColor()!=board[currentRow][currentColumn].getColor()
+                           && board[currentRow+1][currentColumn+1].getColor()!=Color.YELLOW 
+                           && board[currentRow+2][currentColumn-+2]==null     
+                                )
+                        {
+                            board[currentRow+2][currentColumn+2] = new Piece(Color.yellow);
+                            pastRow=currentRow;
+                            pastColumn=currentColumn;
+                        }
                     }
                     else
                     {
@@ -562,10 +617,27 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
+<<<<<<< HEAD
                  }
                }
             }
         }              
+=======
+
+
+
+
+                 }
+
+                    }
+
+            }
+        
+    }
+
+ 
+    
+>>>>>>> origin/master
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
         if (relaxer == null) {
