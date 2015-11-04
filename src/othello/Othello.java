@@ -27,7 +27,6 @@ public class Othello extends JFrame implements Runnable {
     int pastRow;
     int pastColumn;
     boolean purge;
-    boolean countscore;
     boolean gameover;
     Image background;
     Image gameboard;
@@ -308,7 +307,6 @@ public class Othello extends JFrame implements Runnable {
         gameover=false;
         purge=false;
         repaint=false;
-        countscore=false;
         board[4][4] = new Piece(Color.white);
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
@@ -529,10 +527,14 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
+<<<<<<< HEAD
 
 
 
                  }
+=======
+                    }
+>>>>>>> origin/master
             }
         }
     }
