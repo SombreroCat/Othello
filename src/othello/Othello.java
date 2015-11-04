@@ -26,8 +26,11 @@ public class Othello extends JFrame implements Runnable {
     int currentColumn;
     int pastRow;
     int pastColumn;
+    int slide;
     boolean purge;
     boolean gameover;
+    boolean menu;
+    boolean howToPlay;
     Image background;
     Image gameboard;
     Image blackpiece;
@@ -79,25 +82,30 @@ public class Othello extends JFrame implements Runnable {
                     xdelta = getWidth2()/numColumns;
                     currentColumn = xpos/xdelta;
                     currentRow = ypos/ydelta;
-                    if(board[currentRow][currentColumn]!=null)
+                    if(!menu)
                     {
-                        if(playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.black))
+                        if(board[currentRow][currentColumn]!=null)
                         {
-                            board[currentRow][currentColumn].setClickedOn(true);
-                        }
-                        else
-                        {
-                            board[currentRow][currentColumn].setClickedOn(false);
-                        }
-                        if(!playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.white))
-                        {
-                            board[currentRow][currentColumn].setClickedOn(true);
-                        }
-                        if(board[currentRow][currentColumn].getColor()== Color.yellow)
-                        {
-                            board[currentRow][currentColumn].setClickedOn(true);
+                            if(playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.black))
+                            {
+                                board[currentRow][currentColumn].setClickedOn(true);
+                            }
+                            else
+                            {
+                                board[currentRow][currentColumn].setClickedOn(false);
+                            }
+                            if(!playerOnesTurn && (board[currentRow][currentColumn].getColor()== Color.white))
+                            {
+                                board[currentRow][currentColumn].setClickedOn(true);
+                            }
+                            if(board[currentRow][currentColumn].getColor()== Color.yellow)
+                            {
+                                board[currentRow][currentColumn].setClickedOn(true);
+                            }
                         }
                     }
+                    if(e.getY()>=200&&e.getY()<=350&&e.getX()>=200&&e.getX()<=350)
+                        menu=false;
 //                    if(board[currentRow][currentColumn].getClickedOn())
 //                    {
 //                        
@@ -128,7 +136,8 @@ public class Othello extends JFrame implements Runnable {
             public void keyPressed(KeyEvent e) {
                 if (e.VK_ESCAPE == e.getKeyCode()) 
                 {
-                    
+                    menu=true;
+                    //reset();
                 }
                 if (e.VK_R == e.getKeyCode())
                 {
@@ -183,7 +192,8 @@ public class Othello extends JFrame implements Runnable {
 //fill border
 //        g.setColor(Color.green);
 //        g.fillPolygon(x, y, 4);
-        g.drawImage(gameboard,getX(0),getY(0),getWidth2(),getHeight2(),this);
+
+
 // draw border
         g.setColor(Color.BLACK);
         g.drawPolyline(x, y, 5);
@@ -195,35 +205,76 @@ public class Othello extends JFrame implements Runnable {
 
         g.setColor(Color.BLACK);
 //horizontal lines
-        for (int zi=1;zi<numRows;zi++)
-        {
-            g.drawLine(getX(0) ,getY(0)+zi*getHeight2()/numRows ,
-            getX(getWidth2()) ,getY(0)+zi*getHeight2()/numRows );
-        }
-//vertical lines
-        for (int zi=1;zi<numColumns;zi++)
-        {
-            g.drawLine(getX(0)+zi*getWidth2()/numColumns ,getY(0) ,
-            getX(0)+zi*getWidth2()/numColumns,getY(getHeight2())  );
-        }
-        for (int zrow=0;zrow<numRows;zrow++)
-        {
-            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+        if(!menu)
+        {   
+                g.drawImage(gameboard,slide,getY(0),getWidth2(),getHeight2(),this);
+
+            for (int zi=1;zi<numRows;zi++)
             {
-                if (board[zrow][zcolumn] != null)
+                g.drawLine(getX(0) ,getY(0)+zi*getHeight2()/numRows ,
+                getX(getWidth2()) ,getY(0)+zi*getHeight2()/numRows );
+            }
+    //vertical lines
+            for (int zi=1;zi<numColumns;zi++)
+            {
+                g.drawLine(getX(0)+zi*getWidth2()/numColumns ,getY(0) ,
+                getX(0)+zi*getWidth2()/numColumns,getY(getHeight2())  );
+            }
+            for (int zrow=0;zrow<numRows;zrow++)
+            {
+                for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
                 {
-                    g.drawImage(board[zrow][zcolumn].getPiece(),getX(0)+zcolumn*getWidth2()/numColumns,
-                    getY(0)+zrow*getHeight2()/numRows,
-                    getWidth2()/numColumns+1,
-                    getHeight2()/numRows+1,this);
-//                    g.fillOval(getX(0)+zcolumn*getWidth2()/numColumns,
-//                    getY(0)+zrow*getHeight2()/numRows,
-//                    getWidth2()/numColumns,
-//                    getHeight2()/numRows);
+                    if (board[zrow][zcolumn] != null)
+                    {
+                        g.drawImage(board[zrow][zcolumn].getPiece(),getX(0)+zcolumn*getWidth2()/numColumns,
+                        getY(0)+zrow*getHeight2()/numRows,
+                        getWidth2()/numColumns+1,
+                        getHeight2()/numRows+1,this);
+    //                    g.fillOval(getX(0)+zcolumn*getWidth2()/numColumns,
+    //                    getY(0)+zrow*getHeight2()/numRows,
+    //                    getWidth2()/numColumns,
+    //                    getHeight2()/numRows);
+                    }
                 }
             }
+            g.setColor(Color.green);
+            g.setFont (new Font ("Impact", Font.PLAIN, 15));
+            g.drawString ("Black's score: " + Piece.blackScore, 30, 50);
+            g.drawString ("White's score: " + Piece.whiteScore, 425, 50);
+
+            g.drawString ("Red's score: " + Piece.redScore, 30, 590);
+            g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
+            g.drawString("Press Tab to Forfeit Turn", 200, 590);
+            if(!playerOnesTurn)
+            {
+                g.drawString ("White's Turn", 240, 50);
+            }
+            else
+                g.drawString ("Black's Turn", 240, 50);
         }
-    
+        
+        
+//////////// MENU CODE ///////// MENU CODE ///////// MENU CODE ///////// MENU CODE /////        
+        if(menu)
+        {
+             g.setColor(Color.green);
+             g.setFont(new Font("Impact",Font.BOLD,50));
+             g.drawString("Welcome to Othello", 50, 120);
+             g.drawString("Play", 220, 350);
+             g.drawString("How to Play", 145, 500);
+             
+        }
+        if(howToPlay)
+        {
+             g.setFont(new Font("Impact",Font.BOLD,20));
+             g.drawString("Players can only move if they jump over an enemy player's piece.", 145, 500);
+             g.drawString("Clicking on a piece will show all possible moves for the piece.", 145, 500);
+             g.drawString("The game ends when there are no more possible moves.", 145, 500);
+             g.drawString("The player with the most pieces by the end of the game wins.", 145, 500);
+             g.drawString("If a player cannot make a move, but other players can, that player will forfeit thier move.", 145, 500);
+             g.drawString("Think wisely before moving, because you cannot undo your move. ", 145, 500);
+        }
+  
         if (winState == WinState.PlayerOne)
         {
             g.setColor(Color.gray);
@@ -255,27 +306,7 @@ public class Othello extends JFrame implements Runnable {
             g.drawString("It is a tie.", 50, 200);            
         }
         
-////        g.setColor(Color.WHITE);
-////        g.setFont (new Font ("Monospaced", Font.PLAIN, 15));
-////        g.drawString ("PlayerOne Score: " + playerOneScore, 30, 50);
-////        g.setFont (new Font ("Monospaced", Font.PLAIN, 15));
-////        g.drawString ("playerTwo Score: " + playerTwoScore, 350, 50);
-////        
-//
-        g.setColor(Color.green);
-        g.setFont (new Font ("Impact", Font.PLAIN, 15));
-        g.drawString ("Black's score: " + Piece.blackScore, 30, 50);
-        g.drawString ("White's score: " + Piece.whiteScore, 425, 50);
         
-        g.drawString ("Red's score: " + Piece.redScore, 30, 590);
-        g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
-        g.drawString("Press Tab to Forfeit Turn", 200, 590);
-        if(!playerOnesTurn)
-        {
-            g.drawString ("White's Turn", 240, 50);
-        }
-        else
-            g.drawString ("Black's Turn", 240, 50);
         
 
 
@@ -289,7 +320,7 @@ public class Othello extends JFrame implements Runnable {
         while (true) {
             animate();
             repaint();
-            double seconds = 0.03;    //time that 1 frame takes.
+            double seconds = 0.01;    //time that 1 frame takes.
             int miliseconds = (int) (1000.0 * seconds);
             try {
                 Thread.sleep(miliseconds);
@@ -307,6 +338,9 @@ public class Othello extends JFrame implements Runnable {
         gameover=false;
         purge=false;
         repaint=false;
+        menu=true;
+        howToPlay=false;
+        slide=600;
         board[4][4] = new Piece(Color.white);
         board[3][4] = new Piece(Color.black);
         board[3][3] = new Piece(Color.white);
@@ -333,7 +367,8 @@ public class Othello extends JFrame implements Runnable {
         }     
         if(gameover)
             return;
-        
+        if(slide>getX(7)&&!menu)
+            slide-=8;
         if (moveHappened)
         {
             moveHappened = false;
@@ -527,20 +562,10 @@ public class Othello extends JFrame implements Runnable {
                         board[currentRow][currentColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
-<<<<<<< HEAD
-
-
-
                  }
-=======
-                    }
->>>>>>> origin/master
+               }
             }
-        }
-    }
-
- 
-    
+        }              
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
         if (relaxer == null) {
