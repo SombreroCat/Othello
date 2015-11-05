@@ -17,27 +17,27 @@ public class Othello extends JFrame implements Runnable {
     Image image;
     Graphics2D g;
 
-    final int numRows = 8;
-    final int numColumns = 8;
-    Piece board[][];
-    boolean playerOnesTurn;
-    int playersturn;
-    boolean moveHappened;
-    int currentRow;
-    int currentColumn;
-    int pastRow;
-    int pastColumn;
+    final public int numRows = 8;
+    final public int numColumns = 8;
+    public static Piece board[][];
+    public boolean playerOnesTurn;
+    public int playersturn;
+    public boolean moveHappened;
+    public int currentRow;
+    public int currentColumn;
+    public int pastRow;
+    public int pastColumn;
     int slide;
-    boolean purge;
-    boolean gameover;
-    boolean menu;
-    boolean howToPlay;
+    public boolean purge;
+    public boolean gameover;
+    public boolean menu;
+    public boolean howToPlay;
     Image background;
     Image gameboard;
     Image blackpiece;
     Image bluepiece;
     Image redpiece;
-    boolean repaint;
+    public boolean repaint;
     Image whitepiece;
     Image yellowsquare;
     enum WinState
@@ -88,23 +88,19 @@ public class Othello extends JFrame implements Runnable {
                         if(board[currentRow][currentColumn]!=null)
                         {
 
-                            if(playersturn==1 && (board[currentRow][currentColumn].getColor()== Color.black))
+                            if(playersturn==1 && board[currentRow][currentColumn].getColor()== Color.black)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            else
-                            {
-                                board[currentRow][currentColumn].setClickedOn(false);
-                            }
-                            if(playersturn==2 && (board[currentRow][currentColumn].getColor()== Color.white))
+                            if(playersturn==2 && board[currentRow][currentColumn].getColor()== Color.white)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            if(playersturn==3 && (board[currentRow][currentColumn].getColor()== Color.red))
+                            if(playersturn==3 && board[currentRow][currentColumn].getColor()== Color.red)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            if(playersturn==4 && (board[currentRow][currentColumn].getColor()== Color.blue));
+                            if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.blue);
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
@@ -524,6 +520,10 @@ public class Othello extends JFrame implements Runnable {
             purge=false;
         }
         //REDO CODE
+//                if(board[currentRow][currentColumn]!=null)
+//        {
+//            othello.movement.PresentingMovement.ShowCheck();
+//        }
         if(board[currentRow][currentColumn]!=null)
         {
             if(board[currentRow][currentColumn].getClickedOn())

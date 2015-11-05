@@ -11,37 +11,37 @@ public class Piece {
     static int redScore;
     static int blueScore;
     
-    Piece(Color _color)
+    public Piece(Color _color)
     {
         color = _color;
         ClickedOn=false;
     }
-    Color getColor()
+    public Color getColor()
     {
         return (color);
     }
-    void setColor(Color _color)
+    public void setColor(Color _color)
     {
         color = _color;
     }
-    boolean getClickedOn()
+    public boolean getClickedOn()
     {
         return(ClickedOn);
     }
-    void setClickedOn(boolean _clickedon)
+    public void setClickedOn(boolean _clickedon)
     {
         ClickedOn=_clickedon;
     }
-    void setCounted(boolean _counted)
+    public void setCounted(boolean _counted)
     {
         counted=_counted;
     }
-    boolean getCounted()
+    public boolean getCounted()
     {
         return(counted);
     }
     
-    Image getPiece()
+    public Image getPiece()
     {
         if(color == Color.BLUE)
             return(Toolkit.getDefaultToolkit().getImage("./bluepiece.GIF"));
