@@ -19,7 +19,7 @@ public class Othello extends JFrame implements Runnable {
 
     final public int numRows = 8;
     final public int numColumns = 8;
-    public static Piece board[][];
+    public Piece board[][];
     public boolean playerOnesTurn;
     public int playersturn;
     public boolean moveHappened;
