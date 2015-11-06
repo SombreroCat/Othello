@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
+import othello.movement.PresentingMovement;
 public class Othello extends JFrame implements Runnable {
     static final int XBORDER = 20;
     static final int YBORDER = 20;
@@ -87,7 +88,7 @@ public class Othello extends JFrame implements Runnable {
                     {
                         if(board[currentRow][currentColumn]!=null)
                         {
-//CHANGE CODE BIG PROBLEM
+//CHANGE CODE BIG PROBLEM NEED A NEW SET OF EYES
                             if(playersturn==1 && board[currentRow][currentColumn].getColor()== Color.black)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
