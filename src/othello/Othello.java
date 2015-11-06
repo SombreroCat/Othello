@@ -87,23 +87,24 @@ public class Othello extends JFrame implements Runnable {
                     {
                         if(board[currentRow][currentColumn]!=null)
                         {
-
+//CHANGE CODE BIG PROBLEM
                             if(playersturn==1 && board[currentRow][currentColumn].getColor()== Color.black)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
+                                return;
                             }
-                            if(playersturn==2 && board[currentRow][currentColumn].getColor()== Color.white)
+                            else if(playersturn==2 && board[currentRow][currentColumn].getColor()== Color.white)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            if(playersturn==3 && board[currentRow][currentColumn].getColor()== Color.red)
+                            else if(playersturn==3 && board[currentRow][currentColumn].getColor()== Color.red)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.blue);
-                            {
-                                board[currentRow][currentColumn].setClickedOn(true);
-                            }
+//                            else if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.BLUE);
+//                            {
+//                                board[currentRow][currentColumn].setClickedOn(true);
+//                            }
                             if(board[currentRow][currentColumn].getColor()== Color.yellow)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
@@ -623,6 +624,7 @@ public class Othello extends JFrame implements Runnable {
                         else
                             playersturn=1;
                         board[currentRow][currentColumn].setClickedOn(false);
+                        board[pastRow][pastColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
                  }

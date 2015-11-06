@@ -10,15 +10,30 @@ public class Piece {
     static int whiteScore;
     static int redScore;
     static int blueScore;
+    private int colorscore;
     
     public Piece(Color _color)
     {
         color = _color;
         ClickedOn=false;
+        if(color==Color.BLUE)
+            colorscore=4;
+        if(color==Color.WHITE)
+            colorscore=2;
+        if(color==Color.RED)
+            colorscore=3;
+        if(color==Color.BLACK)
+            colorscore=1;
+        if(color==Color.YELLOW)
+            colorscore=5;
     }
     public Color getColor()
     {
         return (color);
+    }
+    public int getColorScore()
+    {
+        return (colorscore);
     }
     public void setColor(Color _color)
     {
