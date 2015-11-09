@@ -145,8 +145,7 @@ public class Othello extends JFrame implements Runnable {
             public void keyPressed(KeyEvent e) {
                 if (e.VK_ESCAPE == e.getKeyCode()) 
                 {
-                    menu=true;
-                    //reset();
+                    reset();
                 }
                 if (e.VK_R == e.getKeyCode())
                 {
