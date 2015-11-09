@@ -665,9 +665,19 @@ public class Othello extends JFrame implements Runnable {
             }
             else
                 winState=WinState.Tie;
-            return(true);
-            
+            return(true); 
         }
+        for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if(board[zrow][zcolumn]!=null)
+                        {
+                            
+                        }
+                    }
+                }
+        
         return(false);
     }
 ////////////////////////////////////////////////////////////////////////////
