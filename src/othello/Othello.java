@@ -263,7 +263,7 @@ public class Othello extends JFrame implements Runnable {
         {
              g.setColor(Color.green);
              g.setFont(new Font("Impact",Font.BOLD,50));
-             g.drawString("Othello", 190, 120);
+             g.drawString("Four Player Othello", 60, 120);
              g.drawString("Play", 220, 350);
              g.drawString("How to Play", 145, 500);
              
