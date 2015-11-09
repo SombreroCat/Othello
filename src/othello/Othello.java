@@ -91,6 +91,7 @@ public class Othello extends JFrame implements Runnable {
                             if(board[currentRow][currentColumn].getColor()== Color.yellow)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
+                                moveHappened=true;
                             }
                             if(playersturn==1 && board[currentRow][currentColumn].getColor()== Color.black)
                             {
@@ -279,6 +280,19 @@ public class Othello extends JFrame implements Runnable {
         }
         if(!menu && !howToPlay)
         {
+            g.drawString ("Red's score: " + Piece.redScore, 30, 590);
+        g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
+        g.drawString("Press E to Forfeit Turn", 200, 590);
+        if(playersturn==1)
+            g.drawString ("Black's Turn", 240, 50);
+        if(playersturn==2)
+            g.drawString ("White's Turn", 240, 50);
+        if(playersturn==3)
+            g.drawString ("Red's Turn", 240, 50);
+        if(playersturn==4)
+            g.drawString ("Blue's Turn", 240, 50);
+        
+        }
         if (winState == WinState.PlayerOne)
         {
             g.setColor(Color.gray);
@@ -311,18 +325,7 @@ public class Othello extends JFrame implements Runnable {
         }
         
         
-        g.drawString ("Red's score: " + Piece.redScore, 30, 590);
-        g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
-        g.drawString("Press E to Forfeit Turn", 200, 590);
-        if(playersturn==1)
-            g.drawString ("Black's Turn", 240, 50);
-        if(playersturn==2)
-            g.drawString ("White's Turn", 240, 50);
-        if(playersturn==3)
-            g.drawString ("Red's Turn", 240, 50);
-        if(playersturn==4)
-            g.drawString ("Blue's Turn", 240, 50);
-        }
+
         gOld.drawImage(image, 0, 0, null);
     }
 
@@ -401,23 +404,9 @@ public class Othello extends JFrame implements Runnable {
             slide-=8;
         if (moveHappened)
         {
+            CheckWin();
             moveHappened = false;
         }
-
-//        if(repaint)
-//        {
-//            if(currentColumn==pastColumn)
-//            {
-//                int bop = currentRow-pastRow;
-//                if(bop>0)
-//                {
-//                    for (int zrow=1;zrow<bop;zrow++)
-//                    {
-//                        board[currentRow+zrow][currentColumn].setColor(board[pastRow][pastColumn].getColor());
-//                    }
-//                }
-//            }
-//        }
             int blackscore=0;
             int whitescore=0;
             int redscore=0;
@@ -635,7 +624,52 @@ public class Othello extends JFrame implements Runnable {
                  }
                }
             }
-        }              
+        }
+
+////////////////////////////////////////////////////////////////////////////
+    public boolean CheckWin()    {
+    
+        int totalspaces=0;
+        boolean gamewon=false;
+        for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if(board[zrow][zcolumn]!=null)
+                        {
+                            totalspaces++;
+                        }
+                    }
+                }
+        if(totalspaces==64)
+        {
+            gamewon=true;
+        }
+        if(gamewon)
+        {
+            if(Piece.blackScore>Piece.whiteScore && Piece.blackScore>Piece.blueScore && Piece.blackScore>Piece.redScore)
+            {
+                winState=WinState.PlayerOne;
+            }
+            else if(Piece.whiteScore>Piece.blackScore && Piece.whiteScore>Piece.blueScore && Piece.whiteScore>Piece.redScore)
+            {
+                winState=WinState.PlayerTwo;
+            }
+            else if(Piece.blueScore>Piece.blackScore && Piece.blueScore>Piece.whiteScore && Piece.blueScore>Piece.redScore)
+            {
+                winState=WinState.PlayerThree;
+            }
+            else if(Piece.redScore>Piece.blackScore && Piece.redScore>Piece.whiteScore && Piece.redScore>Piece.blueScore)
+            {
+                winState=WinState.PlayerFour;
+            }
+            else
+                winState=WinState.Tie;
+            return(true);
+            
+        }
+        return(false);
+    }
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
         if (relaxer == null) {
