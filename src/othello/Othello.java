@@ -88,7 +88,6 @@ public class Othello extends JFrame implements Runnable {
                     {
                         if(board[currentRow][currentColumn]!=null)
                         {
-//CHANGE CODE BIG PROBLEM NEED A NEW SET OF EYES
                             if(board[currentRow][currentColumn].getColor()== Color.yellow)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
@@ -106,7 +105,7 @@ public class Othello extends JFrame implements Runnable {
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            else if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.blue);
+                            else if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.blue)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
@@ -324,7 +323,6 @@ public class Othello extends JFrame implements Runnable {
         if(playersturn==4)
             g.drawString ("Blue's Turn", 240, 50);
         }
-        g.drawString (""+playersturn, 240, 150);
         gOld.drawImage(image, 0, 0, null);
     }
 
