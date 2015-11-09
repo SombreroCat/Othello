@@ -28,6 +28,7 @@ public class Othello extends JFrame implements Runnable {
     public int pastRow;
     public int pastColumn;
     int slide;
+    boolean blueturn;
     public boolean purge;
     public boolean gameover;
     public boolean menu;
@@ -88,6 +89,10 @@ public class Othello extends JFrame implements Runnable {
                         if(board[currentRow][currentColumn]!=null)
                         {
 //CHANGE CODE BIG PROBLEM NEED A NEW SET OF EYES
+                            if(board[currentRow][currentColumn].getColor()== Color.yellow)
+                            {
+                                board[currentRow][currentColumn].setClickedOn(true);
+                            }
                             if(playersturn==1 && board[currentRow][currentColumn].getColor()== Color.black)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
@@ -101,11 +106,7 @@ public class Othello extends JFrame implements Runnable {
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-//                            else if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.BLUE);
-//                            {
-//                                board[currentRow][currentColumn].setClickedOn(true);
-//                            }
-                            if(board[currentRow][currentColumn].getColor()== Color.yellow)
+                            else if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.blue);
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
@@ -149,7 +150,6 @@ public class Othello extends JFrame implements Runnable {
                 }
                 if (e.VK_R == e.getKeyCode())
                 {
-                    reset();
                 }
                 if (e.VK_E == e.getKeyCode())
                 {
@@ -324,6 +324,7 @@ public class Othello extends JFrame implements Runnable {
         if(playersturn==4)
             g.drawString ("Blue's Turn", 240, 50);
         }
+        g.drawString (""+playersturn, 240, 150);
         gOld.drawImage(image, 0, 0, null);
     }
 
@@ -374,6 +375,7 @@ public class Othello extends JFrame implements Runnable {
         board[5][6] = new Piece(Color.blue);
         board[6][5] = new Piece(Color.BLACK);
         board[6][6] = new Piece(Color.red);
+        blueturn=false;
         playersturn=1;
 
     }
@@ -518,6 +520,14 @@ public class Othello extends JFrame implements Runnable {
                     }
                 }
             purge=false;
+            for (int zrow=0;zrow<numRows;zrow++)
+                        {
+                            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                            {
+                                if(board[zrow][zcolumn]!=null)
+                                board[zrow][zcolumn].setClickedOn(false);
+                            }
+                        }
         }
         //REDO CODE
 //                if(board[currentRow][currentColumn]!=null)
@@ -622,8 +632,6 @@ public class Othello extends JFrame implements Runnable {
                             playersturn++;
                         else
                             playersturn=1;
-                        board[currentRow][currentColumn].setClickedOn(false);
-                        board[pastRow][pastColumn].setClickedOn(false);
                         purge=true;
                         repaint=true;
                  }
