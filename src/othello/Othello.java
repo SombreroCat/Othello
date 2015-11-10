@@ -360,8 +360,11 @@ public class Othello extends JFrame implements Runnable {
         board[5][1] = new Piece(Color.white);
         board[5][2] = new Piece(Color.blue);
         board[6][1] = new Piece(Color.BLACK);
-        board[6][2] = new Piece(Color.blue);
-        
+        board[6][2] = new Piece(Color.red);
+        Piece.blackstatis=true;
+        Piece.whitestatis=true;
+        Piece.redstatis=true;
+        Piece.bluestatis=true;
 //        board[1][1] = new Piece(Color.white);
 //        board[1][2] = new Piece(Color.blue);
 //        board[2][1] = new Piece(Color.BLACK);
@@ -664,89 +667,108 @@ public class Othello extends JFrame implements Runnable {
                         }
                     }
                 }
-//        for (int zrow=0;zrow<numRows;zrow++)
-//                {
-//                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-//                    {
-//                        if(board[zrow][zcolumn]!=null)
-//                        {
-//                    if(board[zrow][zcolumn].getColor()!=Color.YELLOW)
-//                    {
-//                        if(zcolumn+1<numColumns && zcolumn+2<numColumns 
-//                           && board[zrow][zcolumn+1]!=null
-//                           && board[zrow][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor() 
-//                           && board[zrow][zcolumn+1].getColor()!=Color.YELLOW
-//                           && board[zrow][zcolumn+2]==null)
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zrow-1>=0 && zrow-2>=0 
-//                           && board[zrow-1][zcolumn]!=null 
-//                           && board[zrow-1][zcolumn].getColor()!=board[zrow][zcolumn].getColor()
-//                           && board[zrow-1][zcolumn].getColor()!=Color.YELLOW
-//                           && board[zrow-2][zcolumn]==null)
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zrow+1<numRows && zrow+2<numRows 
-//                           &&board[zrow+1][zcolumn]!=null 
-//                           && board[zrow+1][zcolumn].getColor()!=board[zrow][zcolumn].getColor()
-//                           && board[zrow+1][zcolumn].getColor()!=Color.YELLOW     
-//                           && board[zrow+2][zcolumn]==null)
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zcolumn-1>=0 && zcolumn-2>=0 
-//                           && board[zrow][zcolumn-1]!=null 
-//                           && board[zrow][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor() 
-//                           && board[zrow][zcolumn-1].getColor()!=Color.YELLOW     
-//                           && board[zrow][zcolumn-2]==null)
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zcolumn+1<numColumns && zcolumn+2<numColumns && zrow-1>=0 && zrow-2>=0
-//                           && board[zrow-1][zcolumn+1]!=null
-//                           && board[zrow-1][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor()
-//                           && board[zrow-1][zcolumn+1].getColor()!=Color.YELLOW 
-//                           && board[zrow-2][zcolumn+2]==null
-//                                )
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zrow+1<numRows && zrow+2<numRows && zcolumn-1>=0 && zcolumn-2>=0
-//                           && board[zrow+1][zcolumn-1]!=null
-//                           && board[zrow+1][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor()
-//                           && board[zrow+1][zcolumn-1].getColor()!=Color.YELLOW 
-//                           && board[zrow+2][zcolumn-2]==null
-//                                )
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zcolumn-1>0-1 && zcolumn-2>0-1 && zrow-1>0-1 && zrow-2>0-1
-//                           && board[zrow-1][zcolumn-1]!=null
-//                           && board[zrow-1][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor()
-//                           && board[zrow-1][zcolumn-1].getColor()!=Color.YELLOW 
-//                           && board[zrow-2][zcolumn-2]==null     
-//                                )
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if(zcolumn+1<numColumns && zcolumn+2<numColumns && zrow+1<numRows && zrow+2<numRows
-//                           && board[zrow+1][zcolumn+1]!=null
-//                           && board[zrow+1][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor()
-//                           && board[zrow+1][zcolumn+1].getColor()!=Color.YELLOW 
-//                           && board[zrow+2][zcolumn+2]==null     
-//                                )
-//                        {
-//                            gamewon=false;
-//                        }
-//                        else if (gamewon=true)
-//                            gamewon=true;
-//                        
-//                        }
-//                    }
-//                }
-//                }
+        for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if(board[zrow][zcolumn]!=null)
+                        {
+                            if(board[zrow][zcolumn].getColor()!=Color.YELLOW)
+                            {
+                                boolean exists = true;
+                                if(board[zrow][zcolumn].getColor()==Color.BLACK && !Piece.blackstatis)
+                                {
+                                    exists=false;
+                                }
+                                if(board[zrow][zcolumn].getColor()==Color.WHITE && !Piece.whitestatis)
+                                {
+                                    exists=false;
+                                }
+                                if(board[zrow][zcolumn].getColor()==Color.RED && !Piece.redstatis)
+                                {
+                                    exists=false;
+                                }
+                                if(board[zrow][zcolumn].getColor()==Color.BLUE && !Piece.bluestatis)
+                                {
+                                    exists=false;
+                                }
+                                    if(exists)
+                                    {
+                                        if(zcolumn+1<numColumns && zcolumn+2<numColumns 
+                                           && board[zrow][zcolumn+1]!=null
+                                           && board[zrow][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor() 
+                                           && board[zrow][zcolumn+1].getColor()!=Color.YELLOW
+                                           && board[zrow][zcolumn+2]==null)
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zrow-1>=0 && zrow-2>=0 
+                                           && board[zrow-1][zcolumn]!=null 
+                                           && board[zrow-1][zcolumn].getColor()!=board[zrow][zcolumn].getColor()
+                                           && board[zrow-1][zcolumn].getColor()!=Color.YELLOW
+                                           && board[zrow-2][zcolumn]==null)
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zrow+1<numRows && zrow+2<numRows 
+                                           &&board[zrow+1][zcolumn]!=null 
+                                           && board[zrow+1][zcolumn].getColor()!=board[zrow][zcolumn].getColor()
+                                           && board[zrow+1][zcolumn].getColor()!=Color.YELLOW     
+                                           && board[zrow+2][zcolumn]==null)
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zcolumn-1>=0 && zcolumn-2>=0 
+                                           && board[zrow][zcolumn-1]!=null 
+                                           && board[zrow][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor() 
+                                           && board[zrow][zcolumn-1].getColor()!=Color.YELLOW     
+                                           && board[zrow][zcolumn-2]==null)
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zcolumn+1<numColumns && zcolumn+2<numColumns && zrow-1>=0 && zrow-2>=0
+                                           && board[zrow-1][zcolumn+1]!=null
+                                           && board[zrow-1][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor()
+                                           && board[zrow-1][zcolumn+1].getColor()!=Color.YELLOW 
+                                           && board[zrow-2][zcolumn+2]==null
+                                                )
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zrow+1<numRows && zrow+2<numRows && zcolumn-1>=0 && zcolumn-2>=0
+                                           && board[zrow+1][zcolumn-1]!=null
+                                           && board[zrow+1][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor()
+                                           && board[zrow+1][zcolumn-1].getColor()!=Color.YELLOW 
+                                           && board[zrow+2][zcolumn-2]==null
+                                                )
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zcolumn-1>0-1 && zcolumn-2>0-1 && zrow-1>0-1 && zrow-2>0-1
+                                           && board[zrow-1][zcolumn-1]!=null
+                                           && board[zrow-1][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor()
+                                           && board[zrow-1][zcolumn-1].getColor()!=Color.YELLOW 
+                                           && board[zrow-2][zcolumn-2]==null     
+                                                )
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else if(zcolumn+1<numColumns && zcolumn+2<numColumns && zrow+1<numRows && zrow+2<numRows
+                                           && board[zrow+1][zcolumn+1]!=null
+                                           && board[zrow+1][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor()
+                                           && board[zrow+1][zcolumn+1].getColor()!=Color.YELLOW 
+                                           && board[zrow+2][zcolumn+2]==null     
+                                                )
+                                        {
+                                            gamewon=false;
+                                        }
+                                        else
+                                            gamewon=true;
+                                    }
+                            }
+                        }
+                    }
+                }
         if(totalspaces==64)
                 {
                     gamewon=true;
