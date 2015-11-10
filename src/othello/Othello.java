@@ -667,6 +667,7 @@ public class Othello extends JFrame implements Runnable {
                         }
                     }
                 }
+        //work
         for (int zrow=0;zrow<numRows;zrow++)
                 {
                     for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
