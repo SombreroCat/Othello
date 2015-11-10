@@ -11,6 +11,10 @@ public class Piece {
     static int redScore;
     static int blueScore;
     private int colorscore;
+    static boolean blackstatis=true;
+    static boolean whitestatis=true;
+    static boolean bluestatis=true;
+    static boolean redstatis=true;
     
     public Piece(Color _color)
     {

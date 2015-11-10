@@ -93,20 +93,19 @@ public class Othello extends JFrame implements Runnable {
                                 board[currentRow][currentColumn].setClickedOn(true);
                                 moveHappened=true;
                             }
-                            if(playersturn==1 && board[currentRow][currentColumn].getColor()== Color.black)
-                            {
-                                board[currentRow][currentColumn].setClickedOn(true);
-                                return;
-                            }
-                            else if(playersturn==2 && board[currentRow][currentColumn].getColor()== Color.white)
+                            if(playersturn==1 && Piece.blackstatis &&board[currentRow][currentColumn].getColor()== Color.black)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            else if(playersturn==3 && board[currentRow][currentColumn].getColor()== Color.red)
+                            else if(playersturn==2 && Piece.whitestatis && board[currentRow][currentColumn].getColor()== Color.white)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
-                            else if(playersturn==4 && board[currentRow][currentColumn].getColor()== Color.blue)
+                            else if(playersturn==3 && Piece.redstatis && board[currentRow][currentColumn].getColor()== Color.red)
+                            {
+                                board[currentRow][currentColumn].setClickedOn(true);
+                            }
+                            else if(playersturn==4 && Piece.bluestatis && board[currentRow][currentColumn].getColor()== Color.blue)
                             {
                                 board[currentRow][currentColumn].setClickedOn(true);
                             }
@@ -157,6 +156,7 @@ public class Othello extends JFrame implements Runnable {
                         playersturn++;
                     else
                         playersturn=1;
+                    purge=true;
                 }
 
                 repaint();
@@ -360,22 +360,22 @@ public class Othello extends JFrame implements Runnable {
         board[5][1] = new Piece(Color.white);
         board[5][2] = new Piece(Color.blue);
         board[6][1] = new Piece(Color.BLACK);
-        board[6][2] = new Piece(Color.red);
+        board[6][2] = new Piece(Color.blue);
         
-        board[1][1] = new Piece(Color.white);
-        board[1][2] = new Piece(Color.blue);
-        board[2][1] = new Piece(Color.BLACK);
-        board[2][2] = new Piece(Color.red);
-        
-        board[1][5] = new Piece(Color.white);
-        board[1][6] = new Piece(Color.blue);
-        board[2][5] = new Piece(Color.BLACK);
-        board[2][6] = new Piece(Color.red);
-        
-        board[5][5] = new Piece(Color.white);
-        board[5][6] = new Piece(Color.blue);
-        board[6][5] = new Piece(Color.BLACK);
-        board[6][6] = new Piece(Color.red);
+//        board[1][1] = new Piece(Color.white);
+//        board[1][2] = new Piece(Color.blue);
+//        board[2][1] = new Piece(Color.BLACK);
+//        board[2][2] = new Piece(Color.red);
+//        
+//        board[1][5] = new Piece(Color.white);
+//        board[1][6] = new Piece(Color.blue);
+//        board[2][5] = new Piece(Color.BLACK);
+//        board[2][6] = new Piece(Color.red);
+//        
+//        board[5][5] = new Piece(Color.white);
+//        board[5][6] = new Piece(Color.blue);
+//        board[6][5] = new Piece(Color.BLACK);
+//        board[6][6] = new Piece(Color.red);
         blueturn=false;
         playersturn=1;
 
@@ -402,120 +402,6 @@ public class Othello extends JFrame implements Runnable {
             return;
         if(slide>getX(7)&&!menu)
             slide-=8;
-        if (moveHappened)
-        {
-            CheckWin();
-            moveHappened = false;
-        }
-            int blackscore=0;
-            int whitescore=0;
-            int redscore=0;
-            int bluescore=0;
-            for (int zrow=0;zrow<numRows;zrow++)
-                {
-                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                    {
-                        if (board[zrow][zcolumn] != null)
-                        {
-                            if(board[zrow][zcolumn].getColor()== Color.BLACK)
-                            {
-                                blackscore++;
-                            }
-                            if(board[zrow][zcolumn].getColor()== Color.WHITE)
-                            {
-                                whitescore++;
-                            }
-                            if(board[zrow][zcolumn].getColor()== Color.RED)
-                            {
-                                redscore++;
-                            }
-                            if(board[zrow][zcolumn].getColor()== Color.BLUE)
-                            {
-                                bluescore++;
-
-                            }
-                        }
-                    }
-                }
-
-            Piece.whiteScore=whitescore;
-            Piece.blackScore=blackscore;
-            Piece.redScore=redscore;
-            Piece.blueScore=bluescore;
-        
-
-        if(repaint)
-        {
-            if(currentColumn==pastColumn)
-            {
-                int bop = currentRow-pastRow;
-                if(bop>0)
-                {
-                    for (int zrow=1;zrow<bop;zrow++)
-                        board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
-                }
-                if(bop<0)
-                    for (int zrow=-1;zrow>bop;zrow--)
-                        board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
-            }
-            if(currentRow==pastRow)
-            {
-                int bop = currentColumn-pastColumn;
-                if(bop>0)
-                {
-                    for (int zcol=1;zcol<bop;zcol++)
-                        board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
-                }
-                if(bop<0)
-                    for (int zcol=-1;zcol>bop;zcol--)
-                        board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
-            }
-            if(currentRow==pastRow-2 && currentColumn==pastColumn+2)
-            {
-               for(int diff=1; diff<2;diff++)
-                   board[pastRow-diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
-            }
-            if(currentRow==pastRow+2 && currentColumn==pastColumn-2)
-            {
-               for(int diff=1; diff<2;diff++)
-                   board[pastRow+diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
-            }
-            if(currentRow==pastRow-2 && currentColumn==pastColumn-2)
-            {
-               for(int diff=1; diff<2;diff++)
-                   board[pastRow-diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
-            }
-            if(currentRow==pastRow+2 && currentColumn==pastColumn+2)
-            {
-               for(int diff=1; diff<2;diff++)
-                   board[pastRow+diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
-            }
-            repaint=false;
-        }
-
-        if(purge)
-        {
-            for (int zrow=0;zrow<numRows;zrow++)
-                {
-                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                    {
-                        if (board[zrow][zcolumn] != null)
-                        {
-                            if(board[zrow][zcolumn].getColor()==Color.yellow)
-                                board[zrow][zcolumn]=null;
-                        }
-                    }
-                }
-            purge=false;
-            for (int zrow=0;zrow<numRows;zrow++)
-                        {
-                            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                            {
-                                if(board[zrow][zcolumn]!=null)
-                                board[zrow][zcolumn].setClickedOn(false);
-                            }
-                        }
-        }
         //REDO CODE
 //                if(board[currentRow][currentColumn]!=null)
 //        {
@@ -624,6 +510,143 @@ public class Othello extends JFrame implements Runnable {
                  }
                }
             }
+            
+            int blackscore=0;
+            int whitescore=0;
+            int redscore=0;
+            int bluescore=0;
+            for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if (board[zrow][zcolumn] != null)
+                        {
+                            if(board[zrow][zcolumn].getColor()== Color.BLACK)
+                            {
+                                blackscore++;
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.WHITE)
+                            {
+                                whitescore++;
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.RED)
+                            {
+                                redscore++;
+                            }
+                            if(board[zrow][zcolumn].getColor()== Color.BLUE)
+                            {
+                                bluescore++;
+
+                            }
+                        }
+                    }
+                }
+
+            Piece.whiteScore=whitescore;
+            Piece.blackScore=blackscore;
+            Piece.redScore=redscore;
+            Piece.blueScore=bluescore;
+        if(blackscore==0)
+        {
+            Piece.blackstatis=false;
+        }
+        if(whitescore==0)
+        {
+            Piece.whitestatis=false;
+        }
+        if(bluescore==0)
+        {
+            Piece.bluestatis=false;
+        }
+        if(redscore==0)
+        {
+            Piece.redstatis=false;
+        }
+        if(playersturn==1 && !Piece.blackstatis)
+            playersturn++;
+        if(playersturn==2 && !Piece.whitestatis)
+            playersturn++;
+        if(playersturn==3 && !Piece.redstatis)
+            playersturn++;
+        if(playersturn==4 && !Piece.bluestatis)
+            playersturn=1;
+        if(repaint)
+        {
+            if(currentColumn==pastColumn)
+            {
+                int bop = currentRow-pastRow;
+                if(bop>0)
+                {
+                    for (int zrow=1;zrow<bop;zrow++)
+                        board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
+                }
+                if(bop<0)
+                    for (int zrow=-1;zrow>bop;zrow--)
+                        board[pastRow+zrow][pastColumn].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow)
+            {
+                int bop = currentColumn-pastColumn;
+                if(bop>0)
+                {
+                    for (int zcol=1;zcol<bop;zcol++)
+                        board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
+                }
+                if(bop<0)
+                    for (int zcol=-1;zcol>bop;zcol--)
+                        board[pastRow][pastColumn+zcol].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow-2 && currentColumn==pastColumn+2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow-diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow+2 && currentColumn==pastColumn-2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow+diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow-2 && currentColumn==pastColumn-2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow-diff][pastColumn-diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            if(currentRow==pastRow+2 && currentColumn==pastColumn+2)
+            {
+               for(int diff=1; diff<2;diff++)
+                   board[pastRow+diff][pastColumn+diff].setColor(board[pastRow][pastColumn].getColor());
+            }
+            repaint=false;
+        }
+
+        if(purge)
+        {
+            for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if (board[zrow][zcolumn] != null)
+                        {
+                            if(board[zrow][zcolumn].getColor()==Color.yellow)
+                                board[zrow][zcolumn]=null;
+                        }
+                    }
+                }
+            purge=false;
+            for (int zrow=0;zrow<numRows;zrow++)
+                        {
+                            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                            {
+                                if(board[zrow][zcolumn]!=null)
+                                board[zrow][zcolumn].setClickedOn(false);
+                            }
+                        }
+        }
+        if (moveHappened)
+        {
+            CheckWin();
+            moveHappened = false;
+        }
         }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -641,10 +664,93 @@ public class Othello extends JFrame implements Runnable {
                         }
                     }
                 }
+//        for (int zrow=0;zrow<numRows;zrow++)
+//                {
+//                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+//                    {
+//                        if(board[zrow][zcolumn]!=null)
+//                        {
+//                    if(board[zrow][zcolumn].getColor()!=Color.YELLOW)
+//                    {
+//                        if(zcolumn+1<numColumns && zcolumn+2<numColumns 
+//                           && board[zrow][zcolumn+1]!=null
+//                           && board[zrow][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor() 
+//                           && board[zrow][zcolumn+1].getColor()!=Color.YELLOW
+//                           && board[zrow][zcolumn+2]==null)
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zrow-1>=0 && zrow-2>=0 
+//                           && board[zrow-1][zcolumn]!=null 
+//                           && board[zrow-1][zcolumn].getColor()!=board[zrow][zcolumn].getColor()
+//                           && board[zrow-1][zcolumn].getColor()!=Color.YELLOW
+//                           && board[zrow-2][zcolumn]==null)
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zrow+1<numRows && zrow+2<numRows 
+//                           &&board[zrow+1][zcolumn]!=null 
+//                           && board[zrow+1][zcolumn].getColor()!=board[zrow][zcolumn].getColor()
+//                           && board[zrow+1][zcolumn].getColor()!=Color.YELLOW     
+//                           && board[zrow+2][zcolumn]==null)
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zcolumn-1>=0 && zcolumn-2>=0 
+//                           && board[zrow][zcolumn-1]!=null 
+//                           && board[zrow][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor() 
+//                           && board[zrow][zcolumn-1].getColor()!=Color.YELLOW     
+//                           && board[zrow][zcolumn-2]==null)
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zcolumn+1<numColumns && zcolumn+2<numColumns && zrow-1>=0 && zrow-2>=0
+//                           && board[zrow-1][zcolumn+1]!=null
+//                           && board[zrow-1][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor()
+//                           && board[zrow-1][zcolumn+1].getColor()!=Color.YELLOW 
+//                           && board[zrow-2][zcolumn+2]==null
+//                                )
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zrow+1<numRows && zrow+2<numRows && zcolumn-1>=0 && zcolumn-2>=0
+//                           && board[zrow+1][zcolumn-1]!=null
+//                           && board[zrow+1][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor()
+//                           && board[zrow+1][zcolumn-1].getColor()!=Color.YELLOW 
+//                           && board[zrow+2][zcolumn-2]==null
+//                                )
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zcolumn-1>0-1 && zcolumn-2>0-1 && zrow-1>0-1 && zrow-2>0-1
+//                           && board[zrow-1][zcolumn-1]!=null
+//                           && board[zrow-1][zcolumn-1].getColor()!=board[zrow][zcolumn].getColor()
+//                           && board[zrow-1][zcolumn-1].getColor()!=Color.YELLOW 
+//                           && board[zrow-2][zcolumn-2]==null     
+//                                )
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if(zcolumn+1<numColumns && zcolumn+2<numColumns && zrow+1<numRows && zrow+2<numRows
+//                           && board[zrow+1][zcolumn+1]!=null
+//                           && board[zrow+1][zcolumn+1].getColor()!=board[zrow][zcolumn].getColor()
+//                           && board[zrow+1][zcolumn+1].getColor()!=Color.YELLOW 
+//                           && board[zrow+2][zcolumn+2]==null     
+//                                )
+//                        {
+//                            gamewon=false;
+//                        }
+//                        else if (gamewon=true)
+//                            gamewon=true;
+//                        
+//                        }
+//                    }
+//                }
+//                }
         if(totalspaces==64)
-        {
-            gamewon=true;
-        }
+                {
+                    gamewon=true;
+                }
         if(gamewon)
         {
             if(Piece.blackScore>Piece.whiteScore && Piece.blackScore>Piece.blueScore && Piece.blackScore>Piece.redScore)
@@ -664,21 +770,13 @@ public class Othello extends JFrame implements Runnable {
                 winState=WinState.PlayerFour;
             }
             else
+            {
                 winState=WinState.Tie;
+            }
             return(true); 
         }
-        for (int zrow=0;zrow<numRows;zrow++)
-                {
-                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                    {
-                        if(board[zrow][zcolumn]!=null)
-                        {
-                            
-                        }
-                    }
-                }
-        
         return(false);
+    
     }
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
