@@ -59,7 +59,7 @@ public class Piece {
     {
         return(counted);
     }
-    
+
     public Image getPiece()
     {
         if(color == Color.BLUE)
@@ -74,5 +74,4 @@ public class Piece {
             return(Toolkit.getDefaultToolkit().getImage("./Rectangle.PNG"));
         return(null);
     }
-    
 }

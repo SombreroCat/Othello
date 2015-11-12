@@ -1,5 +1,4 @@
 package GUI;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -11,7 +10,6 @@ public class Menu {
     public static int playYPos;
     public static int howToPlayXpos;
     public static int howToPlayYpos;
-    
      public static void paint(Graphics2D g)
      {
          if(othello.Othello.menu&&!othello.Othello.howToPlay)
@@ -42,8 +40,7 @@ public class Menu {
              g.drawString("How to Play", 145+howToPlayXpos, 500+howToPlayYpos);
              howToPlayXpos=0;
              howToPlayYpos=0;
-             g.setFont(new Font("Impact",Font.BOLD,50));
-             
+             g.setFont(new Font("Impact",Font.BOLD,50)); 
         }
         if(othello.Othello.howToPlay&&othello.Othello.menu)
         {

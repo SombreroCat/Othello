@@ -246,38 +246,28 @@ public class Othello extends JFrame implements Runnable {
                         getY(0)+zrow*getHeight2()/numRows,
                         getWidth2()/numColumns+1,
                         getHeight2()/numRows+1,this);
-    //                    g.fillOval(getX(0)+zcolumn*getWidth2()/numColumns,
-    //                    getY(0)+zrow*getHeight2()/numRows,
-    //                    getWidth2()/numColumns,
-    //                    getHeight2()/numRows);
                     }
                 }
             }
             g.setColor(Color.green);
             g.setFont (new Font ("Impact", Font.PLAIN, 15));
-            g.drawString ("Black's score: " + Piece.blackScore, 30, 50);
-            g.drawString ("White's score: " + Piece.whiteScore, 425, 50);
-
-            g.drawString ("Red's score: " + Piece.redScore, 30, 590);
-            g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
         }
-        GUI.Menu.paint(g);
-        
-//////////// MENU CODE ///////// MENU CODE ///////// MENU CODE ///////// MENU CODE /////        
         GUI.Menu.paint(g);
         if(!menu && !howToPlay)
         {
-            g.drawString ("Red's score: " + Piece.redScore, 30, 590);
-        g.drawString ("Blue's score: " + Piece.blueScore, 425, 590);
-        g.drawString("Press E to Forfeit Turn", 200, 590);
-        if(playersturn==1)
-            g.drawString ("Black's Turn", 240, 50);
-        if(playersturn==2)
-            g.drawString ("White's Turn", 240, 50);
-        if(playersturn==3)
-            g.drawString ("Red's Turn", 240, 50);
-        if(playersturn==4)
-            g.drawString ("Blue's Turn", 240, 50);
+            g.drawString ("Black's score: " + Piece.blackScore, getX(2), getY(0));
+            g.drawString ("White's score: " + Piece.whiteScore, getWidth()-115, 50);
+            g.drawString ("Red's score: " + Piece.redScore, getX(2), getHeight()-13);
+            g.drawString ("Blue's score: " + Piece.blueScore, getWidth()-110, getHeight()-13);
+            g.drawString("Press E to Forfeit Turn",  getWidth()/2-65, getHeight()-13);
+            if(playersturn==1)
+                g.drawString ("Black's Turn", getWidth()/2-50, 50);
+            if(playersturn==2)
+                g.drawString ("White's Turn", getWidth()/2-50, 50);
+            if(playersturn==3)
+                g.drawString ("Red's Turn", getWidth()/2-50, 50);
+            if(playersturn==4)
+                g.drawString ("Blue's Turn", getWidth()/2-50, 50);
         
         }
         g.setColor(Color.green);
@@ -306,12 +296,9 @@ public class Othello extends JFrame implements Runnable {
             g.setFont(new Font("Monospaced",Font.BOLD,40) );
             g.drawString("Tied Game", 170, 200);            
         }
-        
-        
-
-        gOld.drawImage(image, 0, 0, null);
+    
+       gOld.drawImage(image, 0, 0, null);
     }
-
 
 ////////////////////////////////////////////////////////////////////////////
 // needed for     implement runnable
