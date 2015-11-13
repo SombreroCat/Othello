@@ -16,7 +16,7 @@ public class Menu {
         {
              g.setColor(Color.green);
              g.setFont(new Font("Impact",Font.BOLD,50));
-             g.drawString("Othello", 190, 120);
+             g.drawString("Othello", ((othello.Othello.getWidth2()/2)-63), 120);
              if(playHover)
              {
                  g.setColor(Color.yellow);
@@ -24,7 +24,7 @@ public class Menu {
                  playXPos=-9;
                  playYPos=4;
              }
-             g.drawString("Play", 220+playXPos, 350+playYPos);
+             g.drawString("Play", ((othello.Othello.getWidth2()/2)-28)+playXPos, 350+playYPos);
              g.setColor(Color.green);
              g.setFont(new Font("Impact",Font.BOLD,50));
              playXPos=0;
@@ -37,7 +37,7 @@ public class Menu {
                  howToPlayXpos=-25;
                  howToPlayYpos=4;
              }
-             g.drawString("How to Play", 145+howToPlayXpos, 500+howToPlayYpos);
+             g.drawString("How to Play", ((othello.Othello.getWidth2()/2)-98)+howToPlayXpos, 500+howToPlayYpos);
              howToPlayXpos=0;
              howToPlayYpos=0;
              g.setFont(new Font("Impact",Font.BOLD,50)); 

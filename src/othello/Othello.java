@@ -12,9 +12,9 @@ public class Othello extends JFrame implements Runnable {
     static final int WINDOW_WIDTH = 2*(WINDOW_BORDER + XBORDER) + 495;
     static final int WINDOW_HEIGHT = YTITLE + WINDOW_BORDER + 2 * YBORDER + 525;
     boolean animateFirstTime = true;
-    int xsize = -1;
-    int ysize = -1;
-    Image image;
+    static int xsize = -1;
+    static int ysize = -1;
+    static Image image;
     Graphics2D g;
 
     final public int numRows = 8;
@@ -84,6 +84,7 @@ public class Othello extends JFrame implements Runnable {
                     xdelta = getWidth2()/numColumns;
                     currentColumn = xpos/xdelta;
                     currentRow = ypos/ydelta;
+                    purge=true;
                     if(!menu)
                     {
                         if(board[currentRow][currentColumn]!=null)
@@ -326,7 +327,7 @@ public class Othello extends JFrame implements Runnable {
         repaint=false;
         menu=true;
         howToPlay=false;
-        slide=600;
+        slide=800;
         board[5][1] = new Piece(Color.white);
         board[5][2] = new Piece(Color.blue);
         board[6][1] = new Piece(Color.BLACK);
@@ -370,7 +371,32 @@ public class Othello extends JFrame implements Runnable {
 //            redpiece;
 //            whitepiece;
             reset();
-        }     
+        }
+        
+        if(purge)
+        {
+            for (int zrow=0;zrow<numRows;zrow++)
+                {
+                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                    {
+                        if (board[zrow][zcolumn] != null)
+                        {
+                            if(board[zrow][zcolumn].getColor()==Color.yellow)
+                                board[zrow][zcolumn]=null;
+                        }
+                    }
+                }
+            purge=false;
+            for (int zrow=0;zrow<numRows;zrow++)
+                        {
+                            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+                            {
+                                if(board[zrow][zcolumn]!=null)
+                                board[zrow][zcolumn].setClickedOn(false);
+                            }
+                        }
+        }
+        
         if(gameover)
             return;
         if(slide>getX(7)&&!menu && !howToPlay)
@@ -592,29 +618,7 @@ public class Othello extends JFrame implements Runnable {
             repaint=false;
         }
 
-        if(purge)
-        {
-            for (int zrow=0;zrow<numRows;zrow++)
-                {
-                    for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                    {
-                        if (board[zrow][zcolumn] != null)
-                        {
-                            if(board[zrow][zcolumn].getColor()==Color.yellow)
-                                board[zrow][zcolumn]=null;
-                        }
-                    }
-                }
-            purge=false;
-            for (int zrow=0;zrow<numRows;zrow++)
-                        {
-                            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
-                            {
-                                if(board[zrow][zcolumn]!=null)
-                                board[zrow][zcolumn].setClickedOn(false);
-                            }
-                        }
-        }
+        
         if (moveHappened)
         {
             CheckWin();
@@ -801,11 +805,11 @@ public class Othello extends JFrame implements Runnable {
         return (-y + YBORDER + YTITLE + getHeight2());
     }
     
-    public int getWidth2() {
+    public static int getWidth2() {
         return (xsize - 2 * (XBORDER + WINDOW_BORDER));
     }
 
-    public int getHeight2() {
+    public static int getHeight2() {
         return (ysize - 2 * YBORDER - WINDOW_BORDER - YTITLE);
     }
 }
